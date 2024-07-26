@@ -7,6 +7,12 @@
 	  rel="stylesheet" 
 	  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
 	  crossorigin="anonymous">
+<style>
+    .container {
+        max-width: 600px;
+    }
+    
+</style>
 </head>
 <body class="bg-light">
 
@@ -16,28 +22,29 @@
 			<div class="card">
 				<div class="card-body">
 				<p class="text-center fs-3">Email Sending Application</p>
+					<div th:if="${msg}" th:classappend="'alert ' + ${msgClass}" id="alert">
+                        <p th:text="${msg}"></p>
+                    </div>		
+                    <div id="sendingMessage" class="alert alert-info" style="display:none;">
+                        Sending Mail...
+                    </div>		
 				
-				<th:block th:if="${session.msg}">
-				
-				
-				</th:block>
-				
-				<form action="sendMail" method="post">
+				<form action="sendMail" method="post" onsubmit="showSendingMessage()">
 				<div class="mb-3">
 					<label>Enter Email ID To</label>
-					<input type="text" name="to" class="form-control">
+					<input type="email" name="to" class="form-control" required>
 				</div>
 				
 				<div class="mb-3">
 					<label>Subject  </label>
-					<input type="text" name="subject" class="form-control">
+					<input type="text" name="subject" class="form-control" required>
 				</div>
 				
 				<div class="mb-3">
 					<label>Message</label>
-					<textarea rows="5" cols="" name="message" class="form-control"></textarea>
+					<textarea rows="5" cols="" name="message" class="form-control" required></textarea>
 				</div>
-				<button class="btn btn-primary">Send Mail</button>
+				<button type="submit" class="btn btn-primary">Send Mail</button>
 				
 				</form>
 				
@@ -46,5 +53,24 @@
 		</div>
 	</div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-MrcW6ZMFYxibI2Gm03bOb8Jp7MA5h3Di1f6NczY2Jw5PW0quVb6V6DkQ0boGeXY0" 
+        crossorigin="anonymous"></script>
+<script>
+
+function showSendingMessage(){
+    const sendingMessage = document.getElementById('sendingMessage');
+    sendingMessage.style.display = 'block';
+}
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        const alertElement = document.getElementById('alert');
+        if (alertElement) {
+            setTimeout(() => {
+                alertElement.style.display = 'none';
+            }, 2000); //  2 seconds
+        }
+    });
+</script>
 </body>
 </html>

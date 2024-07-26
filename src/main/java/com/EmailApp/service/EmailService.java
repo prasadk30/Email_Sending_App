@@ -20,7 +20,7 @@ public class EmailService {
 			MimeMessage message=javaMailSender.createMimeMessage();
 			MimeMessageHelper helper=new MimeMessageHelper(message);
 			
-			helper.setFrom("yourmailid@gmail.com");
+			helper.setFrom("example@gmail.com ");  // set you email id
 			helper.setTo(em.getTo());
 			helper.setSubject(em.getSubject());
 			helper.setText(em.getMessage());
